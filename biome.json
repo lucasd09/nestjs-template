@@ -35,7 +35,7 @@
         "noUnusedVariables": "error",
         "noConstAssign": "error",
         "noUndeclaredVariables": "off",
-        "noUnusedPrivateClassMembers": "error",
+        "noUnusedPrivateClassMembers": "off",
         "useHookAtTopLevel": "error",
         "noUnusedImports": "error"
       },

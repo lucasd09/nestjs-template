@@ -1,26 +1,30 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Injectable } from "@nestjs/common";
+import { BaseService } from "src/base/base.service";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { ReadUserDto } from "./dto/read-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "./entities/user.entity";
 
 @Injectable()
-export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+export class UsersService extends BaseService<
+  User,
+  CreateUserDto,
+  UpdateUserDto,
+  ReadUserDto
+> {
+  create(data: CreateUserDto): Promise<User> {
+    throw new Error("Method not implemented.");
   }
-
-  findAll() {
-    return `This action returns all users`;
+  findAll(): Promise<ReadUserDto[]> {
+    throw new Error("Method not implemented.");
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string): Promise<ReadUserDto> {
+    throw new Error("Method not implemented.");
   }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(id: string, data: UpdateUserDto): Promise<User> {
+    throw new Error("Method not implemented.");
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string): Promise<void> {
+    throw new Error("Method not implemented.");
   }
 }
