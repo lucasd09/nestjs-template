@@ -1,13 +1,18 @@
 import { Body, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { BaseService } from "./base.service";
 
-export class BaseController<T, CreateDto, UpdateDto, ReadDto> {
+export class BaseController<TEntity, CreateDto, UpdateDto, ReadDto> {
   constructor(
-    private readonly baseService: BaseService<T, CreateDto, UpdateDto, ReadDto>,
+    private readonly baseService: BaseService<
+      TEntity,
+      CreateDto,
+      UpdateDto,
+      ReadDto
+    >,
   ) {}
 
   @Post()
-  async create(@Body() createDto: CreateDto): Promise<T> {
+  async create(@Body() createDto: CreateDto): Promise<TEntity> {
     return this.baseService.create(createDto);
   }
 
@@ -17,20 +22,20 @@ export class BaseController<T, CreateDto, UpdateDto, ReadDto> {
   }
 
   @Get(":id")
-  async findOne(@Param("id") id: string): Promise<ReadDto> {
+  async findOne(@Param("id") id: number): Promise<ReadDto> {
     return this.baseService.findOne(id);
   }
 
   @Put(":id")
   async update(
-    @Param("id") id: string,
+    @Param("id") id: number,
     @Body() updateDto: UpdateDto,
-  ): Promise<T> {
+  ): Promise<TEntity> {
     return this.baseService.update(id, updateDto);
   }
 
   @Delete(":id")
-  async remove(@Param("id") id: string): Promise<void> {
+  async remove(@Param("id") id: number): Promise<void> {
     return this.baseService.remove(id);
   }
 }

@@ -17,5 +17,8 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3000;
 
   await app.listen(port);
+
+  // biome-ignore lint/suspicious/noConsoleLog: Swagger API
+  console.log(`Swagger Docs -> http://localhost:${port}`);
 }
 bootstrap();
