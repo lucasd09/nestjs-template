@@ -1,4 +1,4 @@
-import { eq, InferSelectModel } from "drizzle-orm";
+import { eq, getTableColumns, InferSelectModel } from "drizzle-orm";
 import { BaseDatabase, BaseTable } from "./types";
 import { PgTable, PgUpdateSetSource } from "drizzle-orm/pg-core";
 
@@ -7,6 +7,7 @@ export class BaseRepository<
   TEntity = InferSelectModel<TTable>,
   CreateDto extends PgUpdateSetSource<TTable> = PgUpdateSetSource<TTable>,
   UpdateDto extends PgUpdateSetSource<TTable> = PgUpdateSetSource<TTable>,
+  ReadDto = InferSelectModel<TTable>,
 > {
   constructor(
     protected readonly db: BaseDatabase,
@@ -19,20 +20,34 @@ export class BaseRepository<
     return created as TEntity;
   }
 
-  async findAll(): Promise<TEntity[]> {
+  async findAll(): Promise<ReadDto[]> {
     const results = await this.db.select().from(this.table as PgTable);
 
-    return results as TEntity[];
+    return results as ReadDto[];
   }
 
-  async findOne(id: number): Promise<TEntity | null> {
+  async findOne(id: number): Promise<ReadDto | null> {
     const [result] = await this.db
       .select()
       .from(this.table as PgTable)
       .where(eq(this.table.id, id))
       .limit(1);
 
-    return (result as TEntity) || null;
+    return (result as ReadDto) || null;
+  }
+
+  async findByColumn<TColumn extends keyof TEntity>(
+    column: TColumn,
+    value: TEntity[TColumn],
+  ): Promise<ReadDto[]> {
+    const columns = getTableColumns(this.table);
+
+    const data = await this.db
+      .select()
+      .from(this.table as PgTable)
+      .where(eq(columns[column as string], value));
+
+    return data as ReadDto[];
   }
 
   async update(id: number, data: UpdateDto): Promise<TEntity> {

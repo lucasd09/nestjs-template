@@ -22,6 +22,7 @@ export class UsersService extends BaseService<
 
     return result;
   }
+
   async findAll(): Promise<ReadUserDto[]> {
     const result = await this.repository.findAll();
 
@@ -31,6 +32,7 @@ export class UsersService extends BaseService<
 
     return result;
   }
+
   async findOne(id: number): Promise<ReadUserDto> {
     const result = await this.repository.findOne(id);
 
@@ -40,11 +42,19 @@ export class UsersService extends BaseService<
 
     return result;
   }
+
+  async findByEmail(email: string): Promise<ReadUserDto[]> {
+    const result = await this.repository.findByColumn("email", email);
+
+    return result;
+  }
+
   async update(id: number, data: UpdateUserDto): Promise<User> {
     const result = await this.repository.update(id, data);
 
     return result;
   }
+
   async remove(id: number): Promise<void> {
     await this.repository.remove(id);
   }

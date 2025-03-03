@@ -1,4 +1,4 @@
-import { Controller } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 
 import { BaseController } from "src/base/base.controller";
 import { User } from "./entities/user.entity";
@@ -14,7 +14,12 @@ export class UsersController extends BaseController<
   UpdateUserDto,
   ReadUserDto
 > {
-  constructor(private readonly userService: UsersService) {
-    super(userService);
+  constructor(private readonly usersService: UsersService) {
+    super(usersService);
+  }
+
+  @Get("findByEmail/:email")
+  async findByEmail(@Param("email") email: string) {
+    return this.usersService.findByEmail(email);
   }
 }

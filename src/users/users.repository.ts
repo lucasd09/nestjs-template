@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { UsersTable } from "drizzle/schemas";
+import { usersTable } from "drizzle/schemas";
 import { BaseRepository } from "src/base/base.repository";
 import { Database } from "../database/types";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -9,12 +9,12 @@ import { CONNECTION_POOL } from "../database/database.module-definition";
 
 @Injectable()
 export class UsersRepository extends BaseRepository<
-  typeof UsersTable,
+  typeof usersTable,
   User,
   CreateUserDto,
   UpdateUserDto
 > {
   constructor(@Inject(CONNECTION_POOL) protected readonly db: Database) {
-    super(db, UsersTable);
+    super(db, usersTable);
   }
 }
