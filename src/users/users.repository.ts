@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { usersTable } from "drizzle/schemas";
-import { BaseRepository } from "src/base/base.repository";
+import { usersTable } from "../database/schemas";
+import { BaseRepository } from "../base/base.repository";
 import { Database } from "../database/types";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";

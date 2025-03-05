@@ -1,4 +1,12 @@
-import { Body, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import {
+  Body,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+} from "@nestjs/common";
 import { BaseService } from "./base.service";
 
 export class BaseController<TEntity, CreateDto, UpdateDto, ReadDto> {
@@ -26,7 +34,7 @@ export class BaseController<TEntity, CreateDto, UpdateDto, ReadDto> {
     return this.baseService.findOne(id);
   }
 
-  @Put(":id")
+  @Patch(":id")
   async update(
     @Param("id") id: number,
     @Body() updateDto: UpdateDto,
@@ -35,6 +43,7 @@ export class BaseController<TEntity, CreateDto, UpdateDto, ReadDto> {
   }
 
   @Delete(":id")
+  @HttpCode(204)
   async remove(@Param("id") id: number): Promise<void> {
     return this.baseService.remove(id);
   }

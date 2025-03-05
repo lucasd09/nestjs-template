@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { BaseService } from "src/base/base.service";
+import { BaseService } from "../base/base.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { ReadUserDto } from "./dto/read-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -43,8 +43,12 @@ export class UsersService extends BaseService<
     return result;
   }
 
-  async findByEmail(email: string): Promise<ReadUserDto[]> {
-    const result = await this.repository.findByColumn("email", email);
+  async findByEmail(email: string): Promise<ReadUserDto> {
+    const [result] = await this.repository.findByColumn("email", email);
+
+    if (!result) {
+      throw new NotFoundException();
+    }
 
     return result;
   }

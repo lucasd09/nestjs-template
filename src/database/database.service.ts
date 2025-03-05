@@ -3,7 +3,7 @@ import { Pool } from "pg";
 import { CONNECTION_POOL } from "./database.module-definition";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Database } from "./types";
-import * as schema from "../../drizzle/schemas";
+import * as schema from "./schemas";
 
 @Injectable()
 export class DatabaseService {

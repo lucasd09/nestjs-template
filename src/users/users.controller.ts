@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from "@nestjs/common";
 
-import { BaseController } from "src/base/base.controller";
+import { BaseController } from "../base/base.controller";
 import { User } from "./entities/user.entity";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { ReadUserDto } from "./dto/read-user.dto";
